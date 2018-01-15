@@ -1,0 +1,2 @@
+myfile.txt texto
+myfile.txt segunda linea 
