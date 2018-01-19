@@ -1,6 +1,8 @@
 package es.eprinsa.curso;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.TreeSet;
 import java.util.Iterator;
@@ -70,9 +72,9 @@ public class PruebaPersona {
 			System.out.println("4 " + p.toString());
 		}
 		
-		EmpleadoPublico ep1 = new EmpleadoPublico("nombre1", "apellidos1", 12, "30827103", new Date(), new Date(), 2011, TipoContrato.JORNADA_COMPLETA, "superior");
-		EmpleadoPublico ep2 = new EmpleadoPublico("nombre1", "apellidos1", 10, "dni1", new Date(), new Date(), 2011, TipoContrato.JORNADA_COMPLETA, "superior");
-		EmpleadoPublico ep3 = new EmpleadoPublico("nombre1", "apellidos1", 11, "dni1", new Date(), new Date(), 2011, TipoContrato.JORNADA_COMPLETA, "superior");		
+		EmpleadoPublico ep1 = new EmpleadoPublico("Nombre1", "apellidos1", 12, "cc", new Date(), new Date(), 2011, TipoContrato.JORNADA_COMPLETA, "superior");
+		EmpleadoPublico ep2 = new EmpleadoPublico("Kombre1", "bpellidos1", 10, "aa", new Date(), new Date(), 2017, TipoContrato.JORNADA_COMPLETA, "superior");
+		EmpleadoPublico ep3 = new EmpleadoPublico("Nombre1", "apellidos1", 11, "bb", new Date(), new Date(), 2018, TipoContrato.JORNADA_COMPLETA, "superior");		
 	
 		// ocultación.  La primera llama al método estático de EmpleadoPublico y la segunda al de Persona
 		ep1.muestraEmpleadosPublicos(ep1, ep2, ep3);	
@@ -123,6 +125,76 @@ public class PruebaPersona {
 		System.out.println("--------------STREAMS-------------");
 		GestorPersonas.pruebaStream(listaEP);
 		//GestorPersonas.pruebaStream(ep1, ep2, ep3);
+		
+		System.out.println("Edad empleados : " + ep1.getEdad());
+		System.out.println("Edad empleados : " + ep2.getEdad());
+		System.out.println("Edad empleados : " + ep3.getEdad());		
+		System.out.println("Edad media de los empleados : " + GestorPersonas.edadMediaEmpleado(listaEP));
+		
+		System.out.println("--------------STREAMS UPPER------");		
+		GestorPersonas.upperDni(listaEP);
+		
+		System.out.println("--------------STREAMS.SUPPLIER------");		
+		GestorPersonas.guardaStream(listaEP);
+		
+		System.out.println("--------------STREAMS.COLLECT------");		
+		GestorPersonas.empiezaN(listaEP);		
+		System.out.println("--------------STREAMS.AGRUPA------");		
+		GestorPersonas.agrupaApellidos(listaEP);				
+		System.out.println("--------------STREAMS.QUITA_DUPLICADOS------");		
+		GestorPersonas.quitaDuplicados(listaEP);						
+		System.out.println("--------------STREAMS.CONCATENA------");		
+		GestorPersonas.concatena(listaEP);
+		System.out.println("--------------STREAMS.REDUCIR------");		
+		GestorPersonas.reducir(listaEP);
+		System.out.println("--------------STREAMS.HILOS------");
+		long totalSumSerie = 0;
+		long totalSumParalelo = 0;
+		long startTime = System.currentTimeMillis();
+		
+		ArrayList<EmpleadoPublico> listaGrande = new ArrayList<EmpleadoPublico>();		
+		for (int i=0; i<1000; i++ ){
+			for(EmpleadoPublico ep : listaEP) {
+				listaGrande.add(ep);
+			}
+		}
+		GestorPersonas.hilos(listaGrande);
+		totalSumParalelo+= (System.currentTimeMillis()-startTime);
+
+		startTime = System.currentTimeMillis();		
+		GestorPersonas.pruebaStream(listaGrande);
+		totalSumSerie+= (System.currentTimeMillis()-startTime);
+		System.out.println("Serie: "+totalSumSerie);
+		System.out.println("Paralelo: "+totalSumParalelo);		
+
+		System.out.println("--------------ARRAYS------");
+		// ordena un array y busca un elemento. Para la ordenación busca el método compareTo de EmpleadoPublico
+		List<EmpleadoPublico> miLista = GestorPersonas.pruebaArray(listaEP);
+		EmpleadoPublico[] miArray = miLista.toArray(new EmpleadoPublico[miLista.size()]);
+		Arrays.sort(miArray);
+		for (EmpleadoPublico e: miArray) {
+			System.out.println("Array : "+ e.toString());
+		}
+		int encontrado = Arrays.binarySearch(miArray, ep1);
+		System.out.println(encontrado + " " + miArray[encontrado]);
+		
+		System.out.println("--------------WRAPPERS------");
+		// tipos primitivos (no serializables) vs wrappers (si serializables)
+		boolean b = Boolean.parseBoolean("true");
+		Boolean B = Boolean.parseBoolean(("FALSE"));
+		if (b) {
+			System.out.println("correcto");			
+		} else {
+			System.out.println("Falso");
+		}
+		if (B) {
+			System.out.println("correcto");			
+		} else {
+			System.out.println("Falso");
+		}		
+		
+		Float f = Float.valueOf("5.5");
+		System.out.println(f + " " + Float.MAX_VALUE + " " + Integer.MAX_VALUE + " " + Double.MAX_VALUE);
 	}
 
 }

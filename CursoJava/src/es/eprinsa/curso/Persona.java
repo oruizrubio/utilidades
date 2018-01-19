@@ -89,7 +89,7 @@ public abstract class Persona implements Comparable<Persona>, Cotizable, AutoClo
 	//public int obtenerEdad(int )
 	
 	public boolean puedeJubilarse() {
-		return (this.getAnnoInicio() < 1974 ^ this.getAnnoJubilacion() > 2018);
+		return (this.getAnnoInicio() < 1974 ^ this.getAnnoJubilacion() > 2015);
 	}
 	
 	public TipoContrato getTipo() {
@@ -215,17 +215,30 @@ public abstract class Persona implements Comparable<Persona>, Cotizable, AutoClo
 	
 	// se recibe persona porque está definido en la implementación
 	// no haría falta definirlo abstracto porque se implemente la interfaz y estás obligado a definirlo	
+
 	@Override
-	public int compareTo(Persona o) {
-		// TODO Auto-generated method stub
-		return this.getEdad() > o.getEdad() ? 1 : (this.getEdad() < o.getEdad() ? -1 : 0);
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dni == null) ? 0 : dni.hashCode());
+		return result;
 	}
 
-	// no puede recibir el tipo persona porque equals se implementa directamente en el objeto Object
 	@Override
 	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		return this.getDni().compareTo(((Persona)obj).getDni()) == 0 ? true : false;
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Persona other = (Persona) obj;
+		if (dni == null) {
+			if (other.dni != null)
+				return false;
+		} else if (!dni.equals(other.dni))
+			return false;
+		return true;
 	}
 
 	public void muestraPersonas(Persona... personas) {

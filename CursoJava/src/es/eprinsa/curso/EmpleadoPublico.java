@@ -56,9 +56,17 @@ public class EmpleadoPublico extends Persona  {
 	}
 	
 	@Override
+	public int compareTo(Persona o) {
+		// TODO Auto-generated method stub
+		return this.getEdad() > o.getEdad() ? 1 : (this.getEdad() < o.getEdad() ? -1 : 0);
+		//return this.getEdad() == o.getEdad() ? 0 : (this.getEdad() >  o.getEdad() ? 1 : -1);
+	}
+	
+	
+	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return this.getNombre() + " " + this.getEdad();
+		return this.getNombre() + " " + this.getApellidos() + " " + this.getEdad() + " " + this.getDni();
 	}
 
 	@Override
