@@ -1,0 +1,33 @@
+<html>
+<head>
+<script type="text/javascript" src="loadxmldoc.js">
+</script>
+</head>
+<body>
+<script type="text/javascript">
+
+//document.write("hola-1");
+
+xmlDoc=loadXMLDoc("books.xml");
+
+//document.write("hola0");
+
+// documentElement always represents the root node
+x=xmlDoc.documentElement.childNodes;
+x=xmlDoc.getElementsByTagName("book")[0].childNodes;
+
+document.write(x.length);
+document.write("<br />");
+
+for (i=0;i<x.length;i++)
+{
+document.write(i);
+document.write(x[i].nodeName);
+document.write(": ");
+document.write(x[i].childNodes[0].nodeValue);
+document.write(x[i].nodeValue);
+document.write("<br />");
+}
+</script>
+</body>
+</html> 

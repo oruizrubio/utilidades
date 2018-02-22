@@ -1,0 +1,395 @@
+<?xml version="1.0"?>
+<?component error="true" debug="true"?>
+<component id="penton.scripting.iedialogs">
+<registration
+	description="Penton Internet Explorer Dialogs Wrapper"
+	progid="penton.scripting.iedialogs"
+	version="1.00"
+	classid="{9efbfd09-554f-46bd-80a3-6cda6579b69c}">
+<script language="VBScript"><![CDATA[
+	Function Register()
+		Dim TypeLib
+		Set TypeLib = CreateObject("Scriptlet.TypeLib")
+		TypeLib.AddURL "penton.scripting.iedialogs.wsc"
+		TypeLib.Path = "penton.scripting.iedialogs.tlb"
+		TypeLib.Doc = "penton.scripting.iedialogs"
+		TypeLib.Name = "penton.scripting.iedialogs.tlb"
+		TypeLib.GUID = "{31DF5BF5-BB46-4477-8B03-AD955179F46B}"
+		TypeLib.MajorVersion = 1
+		TypeLib.MinorVersion = 0
+		TypeLib.Write()
+	End Function
+
+	Function Unregister()
+
+	End Function
+]]></script>
+</registration>
+<public>
+	<property name="Width" helpstring="Dialog window width in pixels.">
+		<get/><put/>
+	</property>
+	<property name="Height" helpstring="Dialog window height in pixels.">
+		<get/><put/>
+	</property>
+	<property name="Title" helpstring="">
+		<get/><put/>
+	</property>
+	<property name="BeforeText" helpstring="">
+		<put/>
+	</property>
+	<property name="AfterText" helpstring="">
+		<put/>
+	</property>
+	<property name="Scroll" helpstring="">
+		<put/>
+	</property>
+	<method name="Reset" helpstring="">
+	</method>
+	<method name="File" helpstring="">
+		<PARAMETER name="WScript" helpstring=""/>
+	</method>
+	<method name="CalendarDate" helpstring="">
+		<PARAMETER name="WScript" helpstring=""/>
+	</method>
+	<method name="Password" helpstring="">
+		<PARAMETER name="WScript" helpstring=""/>
+	</method>
+	<method name="ConfirmedPassword" helpstring="">
+		<PARAMETER name="WScript" helpstring=""/>
+	</method>
+	<method name="Selection" helpstring="">
+		<PARAMETER name="WScript" helpstring=""/>
+		<PARAMETER name="sd" helpstring=""/>
+	</method>
+	<method name="Progress" helpstring="">
+		<PARAMETER name="WScript" helpstring=""/>
+	</method>
+</public>
+
+<script language="VBScript" id="Public Properties">
+<![CDATA[
+
+
+function get_Width()
+	get_Width = Width
+end function
+function put_Width(newValue)
+	Width = newValue
+end function
+
+function get_Height()
+	get_Height = Height
+end function
+function put_Height(newValue)
+	Height = newValue
+end function
+
+function get_Title()
+	get_Title = Title
+end function
+function put_Title(newValue)
+	Title = newValue
+end function
+
+function get_BeforeText(newValue)
+	get_BeforeText = BeforeText
+end function
+function put_BeforeText(newValue)
+	BeforeText = newValue
+end function
+
+function get_AfterText(newValue)
+	get_AfterText = AfterText
+end function
+function put_AfterText(newValue)
+	AfterText = newValue
+end function
+
+function get_Scroll(newValue)
+	get_Scroll = Scroll
+end function
+function put_Scroll(newValue)
+	Scroll = CBool(newValue)
+end function
+
+]]>
+</script>
+<script language="VBScript" id="Public Methods">
+<![CDATA[
+
+function ColorPick(ByVal WScript)	' Begin Callout C
+	set ie = NewBrowser(WScript)
+	body.scroll = "no"
+	body.topMargin = 0: body.bottomMargin = 0
+	body.leftMargin = 0: body.rightMargin = 0
+	Dim dlgHelper
+	set dlgHelper = ie.document.createElement("object")
+	dlgHelper.classId = "clsid:3050f819-98b5-11cf-bb82-00aa00bdce0b"
+	dlgHelper.width = Width: dlgHelper.height = Height
+	body.appendChild dlgHelper
+	Dim dlg: Set dlg = dlgHelper.object
+	Dim ok: Set ok = AddOkButton()
+	ie.width = ie.width + dlgHelper.width _
+		- body.clientWidth
+	ie.height = ie.height + dlgHelper.height _
+		- body.clientHeight + ok.height + 25
+	ie.Visible = true
+	On Error Resume Next
+	Do While Err.Number = 0
+		If Finished Then Exit Do
+		WScript.Sleep 50
+	Loop
+	ie.Quit
+	ColorPick = ""
+end function
+
+
+
+function CalendarDate(ByVal WScript)	' Begin Callout C
+	set ie = NewBrowser(WScript)
+	body.scroll = "no"
+	body.topMargin = 0: body.bottomMargin = 0
+	body.leftMargin = 0: body.rightMargin = 0
+	Dim cal
+	set cal = ie.document.createElement("object")
+	cal.classId = "clsid:8E27C92B-1264-101C-8A2F-040224009C02"
+	cal.width = Width: cal.height = Height
+	body.appendChild cal
+	Dim ctl: Set ctl = cal.object
+	Dim ok: Set ok = AddOkButton()
+	ie.width = ie.width + cal.width _
+		- body.clientWidth
+	ie.height = ie.height + cal.height _
+		- body.clientHeight + ok.height + 25
+	ie.Visible = true
+	On Error Resume Next
+	Do While Err.Number = 0
+		y = ctl.Year
+		m = ctl.Month
+		d = ctl.Day
+		If Finished Then Exit Do
+		WScript.Sleep 50
+	Loop
+	ie.Quit
+	CalendarDate = DateSerial(y, m, d)
+end function
+
+function Password(ByVal WScript)
+	set ie = NewBrowser(WScript)
+	set text = doc.createElement("input")
+	text.type = "password"
+	text.width = 200
+	AddItemLine(text)
+	AddOkButton()
+	ie.Visible = True
+	Finished = False
+	On Error Resume Next
+	Do While Err.Number = 0
+		WScript.Sleep 50
+		Password = text.value
+		If Finished Then Exit Do
+	Loop
+	ie.Quit
+end function
+
+
+function ConfirmedPassword(ByVal WScript)
+	set ie = NewBrowser(WScript)
+	AddItemLine "Enter and confirm a password"
+	set text1 = doc.createElement("input")
+	text1.type = "password": text1.width = 200
+	AddItemLine text1
+	set text2 = doc.createElement("input")
+	text2.type = "password"
+	text2.width = 200
+	AddItemLine text2
+	AddOkButton()
+	ie.Visible = True
+	Finished = False
+	On Error Resume Next
+	Do While Err.Number = 0
+		WScript.Sleep 100
+		If Finished Then
+			If (text1.value = text2.value) Then
+				Exit Do
+			Else
+				text1.value = vbNullString
+				text2.value = vbNullString
+				Finished = False
+				AddItemLine "Passwords did not match!"
+			End If
+		End If
+		' In case the user exits by closing the window...
+		If text1.value = text2.value Then
+			ConfirmedPassword = text1.value
+		Else
+			ConfirmedPassword = vbNullString
+		End If
+	Loop
+
+	ie.Quit
+end function
+
+
+function File(ByVal WScript)
+	set ie = NewBrowser(WScript)
+	Dim f: set f = ie.document.createElement("input")
+	f.type = "file"
+	f.width = 200
+	AddItemLine f
+	AddOkButton()
+	ie.Visible = True
+	Finished = False
+	On Error Resume Next
+	Do While Err.Number = 0
+		File = f.value
+		WScript.Sleep 100
+		If Finished Then Exit Do
+	Loop
+	ie.Quit
+end function
+
+
+
+function Selection(ByVal WScript, ByVal sd)
+	set ie = NewBrowser(WScript)
+	dim d: set d = CreateObject("Scripting.Dictionary")
+	dim i
+	dim keys: keys =  sd.keys
+	Dim selector: Set selector = doc.createElement("select")
+	dim opt: set opt = doc.createElement("option")
+	opt.text = vbNullString: opt.value = Empty
+	selector.Add opt
+	for i = 0 to ubound(keys)
+		set opt = doc.createElement("option")
+		opt.text = keys(i): opt.value = sd(keys(i))
+		selector.Add opt
+	next
+	body.appendChild selector
+	AddOkButton()
+	ie.Visible = True
+	Finished = False
+	On Error Resume Next
+	Do While Err.Number = 0
+		WScript.Sleep 20
+		Selection = selector.value
+		If Finished Then Exit Do
+	Loop
+	ie.Quit
+end function
+
+function Progress(ByVal WScript)
+	Set Progress = new CProgressDialog
+	Progress.Component_Initialize(WScript)
+end function
+
+Class CProgressDialog
+	Dim ie
+
+	Sub Component_Initialize(WScript)
+		' We can't do this in Class_Initialize() since we need
+		' the WScript reference passed in as an argument...
+		set ie = NewBrowser(WScript)
+		ie.document.body.nowrap = false
+		ie.document.body.scroll = "yes"
+		ie.Visible = True
+	End Sub
+
+	Sub Add(ByVal s)
+		ie.document.body.InsertAdjacentText "beforeEnd", s & " "
+	End Sub
+
+	Sub Class_Terminate()
+		' Scoped error suppression so we don't die if this has been closed.
+		On Error Resume Next
+		ie.Quit
+	End Sub
+
+End Class
+
+]]>
+</script>
+<script language="VBScript" id="Private Methods">
+<![CDATA[
+
+
+function NewBrowser(WScript)
+	Finished = False
+	dim ie
+	set ie = CreateObject _
+		("InternetExplorer.Application")
+	ie.navigate "about:blank"
+	Do While ie.ReadyState <> 4
+		WScript.Sleep 50
+	Loop
+	ie.document.title = Title
+	ie.MenuBar = False
+	ie.AddressBar = False
+	ie.StatusBar = False
+	ie.Resizable = False
+	ie.ToolBar = 0
+	Set NewBrowser = ie
+	set doc = ie.document
+	set body = doc.body
+	if not Scroll then body.scroll = "no"
+	if Title <> vbNullstring Then doc.Title = Title
+	AddItemLine BeforeText
+	ie.Height = Height
+	ie.Width = Width
+end function
+
+
+Sub GenericCompletion()
+	Finished = True
+End Sub
+
+
+Sub AddItemLine(ByVal item)
+	' Wraps up insertion of a new element - text or item - on a new line.
+	' If the item is vbNullString (<> "") Then does nothing.
+	If IsObject(item) Then
+		body.AppendChild item
+	ElseIf item <> vbNullString Then
+		body.InsertAdjacentText "beforeEnd", item
+	Else
+		Exit Sub
+	End If
+	body.AppendChild doc.createElement("br")
+End Sub
+
+function AddOkButton()
+	Dim okButton
+	Set okButton = doc.createElement("input")
+	okButton.type = "button"
+	okButton.value = "OK"
+	AddItemLine(okButton)
+	set okButton.onclick = GetRef("GenericCompletion")
+	AddItemLine AfterText
+	Set AddOkButton = okButton
+End function
+
+function Reset()
+	Scroll = False
+	Width = 320
+	Height = 240
+	Title = vbNullString
+	AfterText = vbNullString
+	BeforeText = vbNullString
+	Finished = False
+end function
+
+
+]]>
+</script>
+<script language="VBScript" id="Initialization">
+<![CDATA[
+dim doc, body
+dim Width, Height
+dim Title, BeforeText, AfterText, Scroll
+dim Finished
+Reset()
+]]>
+</script>
+
+</component>

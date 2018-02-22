@@ -1,0 +1,86 @@
+<html>
+<style>
+body{
+overflow-x:hidden;
+overflow-y:scroll;
+}
+</style>
+
+<script language="JavaScript1.2">
+
+/*
+Scrollable Menu Links- By Dynamicdrive.com
+For full source, TOS, and 100s DTHML scripts
+Visit http://dynamicdrive.com
+*/
+
+//configurar las direcciones de las imagenes de las flechas
+var goleftimage='pointer2.gif'
+var gorightimage='pointer.gif'
+//configurar el ancho del menu
+var menuwidth=300
+//configurar la velocidad del scroll (1-10)
+var scrollspeed=6
+//especificar el contenido del menu
+var menucontents='<nobr><a href="http://www.mundojavascript.com">MundoJavascript.com</a> | <a href="http://www.cambiabanners.com">Cambiabanners.com</a> | <a href="http://www.precios10.com">Precios10.com</a> | <a href="http://www.mundojavascript.com/recursos_gratis_webmasters">Recursos webmasters</a> | <a href="http://www.webservicio.com/tops/index.phtml?user=752&codigotop=452&click=1284">Ranking de webs</a></nobr>'
+
+
+////NO NEED TO EDIT BELOW THIS LINE////////////
+
+var actualwidth=''
+var ns_scroll
+function fillup(){
+if (document.all){
+test2.innerHTML=menucontents
+actualwidth=test2.offsetWidth
+}
+else if (document.layers){
+ns_scroll=document.ns_scrollmenu.document.ns_scrollmenu2
+ns_scroll.document.write(menucontents)
+ns_scroll.document.close()
+actualwidth=ns_scroll.document.width
+}
+}
+window.onload=fillup
+
+function moveleft(){
+if (document.all&&test2.style.pixelLeft>(menuwidth-actualwidth))
+test2.style.pixelLeft-=scrollspeed
+else if (document.layers&&ns_scroll.left>(menuwidth-actualwidth))
+ns_scroll.left-=scrollspeed
+lefttime=setTimeout("moveleft()",50)
+}
+
+function moveright(){
+if (document.all&&test2.style.pixelLeft<0)
+test2.style.pixelLeft+=scrollspeed
+else if (document.layers&&ns_scroll.left<0)
+ns_scroll.left+=scrollspeed
+righttime=setTimeout("moveright()",50)
+}
+
+if (document.all||document.layers){
+with (document){
+write('<table border="0" cellspacing="0" cellpadding="0">')
+write('<td valign="middle"><a href=#" onMouseover="moveleft()" onMouseout="clearTimeout(lefttime)"><img src="'+goleftimage+'"border=0></a>&nbsp;</td>')
+write('<td valign="top">')
+if (document.all){
+write('<span style="position:relative;width:'+menuwidth+';">')
+write('<span style="position:absolute;width:'+menuwidth+';clip:rect(0 '+menuwidth+' auto 0)">')
+write('<span id="test2" style="position:absolute;left:0;top:0">')
+write('</span></span></span>')
+}
+else if (document.layers){
+write('<ilayer width='+menuwidth+' name="ns_scrollmenu">')
+write('<layer name="ns_scrollmenu2" left=0 top=0></layer></ilayer>')
+}
+write('</td>')
+write('<td valign="middle">&nbsp;<a href="#" onMouseover="moveright()" onMouseout="clearTimeout(righttime)">')
+write('<img src="'+gorightimage+'"border=0></a>')
+write('</td></table>')
+}
+}
+</script>
+<body>
+</body>
+</html>

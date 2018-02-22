@@ -1,0 +1,46 @@
+<html>
+<head>
+<script type="text/javascript" src="loadxmldoc.js">
+</script>
+</head>
+<body>
+
+<script type="text/javascript">
+
+xmlDoc=loadXMLDoc("books.xml");
+
+x=xmlDoc.getElementsByTagName("title");
+
+for (i=0;i<x.length;i++)
+  {
+  document.write(x[i].childNodes[0].nodeValue);
+  document.write("<br />");
+  } 
+
+y=xmlDoc.documentElement.childNodes;  
+  
+for (i=0;i<y.length;i++)
+{
+  if (y[i].nodeType==1)
+  {//Process only element nodes (type 1)
+  document.write(y[i].nodeName);
+  document.write("<br />");
+	}
+}  
+  
+x=xmlDoc.getElementsByTagName("book")[0].childNodes;
+y=xmlDoc.getElementsByTagName("book")[0].firstChild;
+
+for (i=0;i<x.length;i++)
+{
+if (y.nodeType==1)
+  {//Process only element nodes (type 1)
+  document.write(y.nodeName + "<br />");
+  }
+  y=y.nextSibling;
+}   
+  
+</script>
+
+</body>
+</html>

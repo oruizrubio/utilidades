@@ -1,0 +1,29 @@
+<html> 
+<head> 
+  <title>Agenda</title> 
+</head> 
+<body> 
+  <form action=http://150.214.127.78/asp/consulta.asp method=POST>     
+   <center>
+   <h1><font face="arial">Agenda Personal: CONSULTAS</font></h1><hr>
+   </center>
+   <br><p align="justify"><font face="arial">Si no introduce ningún dato, el resultado de la consulta será 
+   mostrar todos los datos de la totalidad de las personas existentes. Si no deja en blanco ningún campo,
+   se mostrarán todos aquellos registros que cumplan las condiciones impuestas tanto en el nombre como en 
+   la provincia. Si deja uno sólo en blanco se realizará la búsqueda por el campo que haya rellenado.</font>
+   <br><p>
+   <table align="center" border=0 width=350>
+   <tr><td><b>Nombre y Apellidos:</b></td>
+   <td><input type=text name=nombre></td></tr>    
+   <tr><td><b>Provincia:</b></td>
+   <td><input type=text name=provincia></td></tr>    
+   <tr><td><br><p><b>Búsqueda:</b></td>
+   <td><br><p><input type=radio CHECKED name=busqueda value="Global"><b>Global</b></td></tr>
+   <tr><td></td><td><input type=radio name=busqueda value="Exhaustiva"><b>Exhaustiva</b></td></tr>    
+   <tr><td align="center"><br><input type=submit value="Enviar"></td>
+   <td align="center"><br><input type=reset value="Borrar"></td></tr>
+   </table>
+  </form> 
+  <br><p><div align="right"><h6><a href="index.html"><font face="arial">Volver al Menú Principal</font></a></h6></div>         
+</body> 
+</html>

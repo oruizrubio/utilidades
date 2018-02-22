@@ -1,0 +1,84 @@
+<html> 
+<head> 
+  <title>Agenda</title> 
+  <script language="JavaScript">
+	<!--
+	function enviar()
+	{
+	Error="";
+	if (formulario.nombre.value =="")
+		Error += "Campo Nombre y Apellidos vacío.\n";
+	if (formulario.domicilio.value =="")
+		Error += "Campo Domicilio vacío.\n";
+	if (formulario.localidad.value =="")
+		Error += "Campo Localidad vacío.\n";
+	if (formulario.provincia.value =="")
+		Error += "Campo Provincia vacío.\n";
+	if (formulario.cpostal.value =="")
+		Error += "Campo Código Postal vacío.\n";
+	if (formulario.telfijo.value =="")
+		Error += "Campo Teléfono Particular vacío.\n";
+	if (formulario.telmovil.value =="")
+		Error += "Campo Teléfono Móvil vacío.\n";
+	if (formulario.tellab.value =="")
+		Error += "Campo Teléfono Laboral vacío.\n";
+	if (formulario.fax.value =="")
+		Error += "Campo Fax vacío.\n";
+	if (formulario.email.value =="")
+		Error += "Campo E-mail vacío.\n";
+	if (formulario.observaciones.value =="")
+		Error += "Campo Observaciones vacío.\n";
+	if (formulario.login.value =="")
+		Error += "Campo Login vacío.\n";
+	if (formulario.password.value =="")
+		Error += "Campo Password vacío.\n";
+	if (!Error)
+		{
+		document.formulario.action="http://150.214.127.78/asp/alta.asp";
+		document.formulario.submit();
+		}
+	else	
+		alert(Error);	
+	}
+	-->
+  </script>
+</head> 
+<body> 
+  <form name="formulario" action="javascript:enviar();" method=POST>     
+   <center>
+   <h1><font face="arial">Agenda Personal: ALTAS</font></h1><hr>
+   </center><br><p>
+   <table align="center" border=0 width=350>
+   <tr><td><b>Nombre y Apellidos:</b></td>
+   <td><input type=text name=nombre></td></tr>    
+   <tr><td><b>Domicilio:</b></td> 
+   <td><input type=text name=domicilio></td></tr>
+   <tr><td><b>Localidad:</b></td> 
+   <td><input type=text name=localidad></td></tr>
+   <tr><td><b>Provincia:</b></td>
+   <td><input type=text name=provincia></td></tr>
+   <tr><td><b>Código Postal:</b></td> 
+   <td><input type=text name=cpostal></td></tr>
+   <tr><td><b>Teléfono Particular:</b></td> 
+   <td><input type=text name=telfijo></td></tr>
+   <tr><td><b>Teléfono Móvil:</b></td> 
+   <td><input type=text name=telmovil></td></tr> 
+   <tr><td><b>Teléfono Laboral:</b></td>
+   <td><input type=text name=tellab></td></tr>     
+   <tr><td><b>Fax:</b></td>
+   <td><input type=text name=fax></td></tr>
+   <tr><td><b>E-mail:</b></td>
+   <td><input type=text name=email></td></tr>  
+   <tr><td valign="top"><b>Observaciones:</b></td>
+   <td><textarea name="observaciones" rows=6 cols=15></textarea></td></tr>
+   <tr><td><br><p><font face="arial" color="0000ff"><b>Login:</b></font></td>
+   <td><br><p><input type=text name=login></td></tr>
+   <tr><td><font face="arial" color="0000ff"><b>Password:</b></font></td>
+   <td><input type=password name=password></td></tr>
+   <tr><td align="center"><br><input type=submit value="Enviar"></td>
+   <td align="center"><br><input type=reset value="Borrar"></td></tr>
+   </table>
+  </form>
+  <br><p><div align="right"><h6><a href="index.html"><font face="arial">Volver al Menú Principal</font></a></h6></div>     
+</body> 
+</html>

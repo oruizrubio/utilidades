@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/2000/REC-xhtml1-20000126/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+ <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+  <title>Tablas cebreadas con jQuery - Filmografía de Luis Buñuel como director</title>
+
+
+<script src="http://jquery.com/src/latest.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('tbody tr:even').addClass('alt');
+	$('tbody tr')
+		.hover(
+			function() {
+				$(this).addClass('over');
+			},
+			function() {
+				$(this).removeClass('over');
+			}
+		)
+		.toggle(
+			function() {
+				$(this).addClass('checked');
+			},
+			function() {
+				$(this).removeClass('checked');
+			}
+		)
+	});
+</script>
+
+<style type="text/css">
+body {
+	font: 12px/1.3 verdana, "bitstream vera sans", sans-serif;
+	color: #222;
+	background: #fff;
+}
+
+#wrap {
+	width: 36em;
+	margin: 0 auto;
+}
+
+.tab {
+	margin: 20px 0;
+}
+
+h1 {
+	font-size: 1em;
+	margin: 0  0 1em;
+}
+
+
+table {
+	font-size: 1em;
+	border-spacing: 0;
+	border-collapse: collapse;
+	width: 40%;
+	width: 100%;
+}
+
+th, td {
+	padding: 4px 6px;
+}
+
+th {
+	background: #ddd;
+	color: #666;
+	border-bottom: 2px solid #ccc;
+	border-right: 2px solid #ccc;
+	border-left: 2px solid #dadada;
+	border-top: 2px solid #dadada;
+	text-align: left;
+	font-weight: bold;
+}
+
+caption {
+	text-transform: uppercase;
+	font-weight: bold;
+	color: #666;
+}
+
+.year {
+	text-align: right;
+}
+
+.alt {
+	background: #f6f6f6;
+}
+
+.over {
+	background: #ffd;
+}
+
+.checked {
+	background: #faeaea;
+}
+
+
+
+</style>
+</head>
+<body>
+
+<div id="wrap">
+
+<h1>Tablas cebreadas con jQuery</h1>
+
+<p>Esto es una demo de cómo es posible, con jQuery, cebrear y dar un poco de gracia a las tablas de datos en muy poquitas líneas de código. Es complemento de la <a href="http://dizque.lacalabaza.net/sotanos/2006/05/introduccion-a-jquery/">Introducción a jQuery</a> publicada en <a href="http://dizque.lacalabaza.net/">Dizque</a>.</p>
+
+<p>Este documento XHTML incluye un pequeño script que se encarga de añadir clases a las filas pares de la tabla, lo que nos permite asignarles estilos vía CSS. Además, se añaden manejadores que manipular el <code>class</code> de cada fila cuando el mouse entra/sale y al hacer clic.</p>
+
+<p>Echa un vistazo al código fuente para ver cómo demonios funciona.</p>
+
+<p>Los datos sobre la filmografía de <a href="http://es.wikipedia.org/wiki/Luis_Bu%C3%B1uel">Luis Buñuel</a> han sido extraídos de la <a href="http://es.wikipedia.org/">Wikipedia</a>.
+
+
+<div class="tab">
+<table>
+
+<caption>Filmografía de Luis Buñuel como director</caption>
+<thead>
+	<tr><th>Título</th><th class="year">Año</th></tr>
+</thead>
+<tbody>
+	<tr><td>Un perro andaluz</td><td class="year">1929</td></tr>
+	<tr><td>La edad de oro</td><td class="year">1930</td></tr>
+
+	<tr><td>Las Hurdes, tierra sin pan</td><td class="year">1933</td></tr>
+	<tr><td>Gran Casino</td><td class="year">1947</td></tr>
+	<tr><td>El gran Calavera</td><td class="year">1949</td></tr>
+	<tr><td>Los olvidados</td><td class="year">1950</td></tr>
+	<tr><td>Susana</td><td class="year">1951</td></tr>
+
+	<tr><td>La hija del engaño</td><td class="year">1951</td></tr>
+	<tr><td>Una mujer sin amor</td><td class="year">1952</td></tr>
+	<tr><td>Subida al cielo</td><td class="year">1952</td></tr>
+	<tr><td>El bruto</td><td class="year">1953</td></tr>
+	<tr><td>Él</td><td class="year">1953</td></tr>
+
+	<tr><td>La ilusión viaja en tranvía</td><td class="year">1954</td></tr>
+	<tr><td>Abismos de pasión</td><td class="year">1954</td></tr>
+	<tr><td>Robinson Crusoe</td><td class="year">1954</td></tr>
+	<tr><td>Ensayo de un crimen</td><td class="year">1955</td></tr>
+	<tr><td>El río y la muerte</td><td class="year">1955</td></tr>
+
+	<tr><td>Así es la aurora</td><td class="year">1956</td></tr>
+	<tr><td>La muerte en el jardín</td><td class="year">1956</td></tr>
+	<tr><td>Nazarín</td><td class="year">1959</td></tr>
+	<tr><td>Los ambiciosos</td><td class="year">1959</td></tr>
+	<tr><td>La joven</td><td class="year">1960</td></tr>
+
+	<tr><td>Viridiana</td><td class="year">1961</td></tr>
+	<tr><td>El ángel exterminador</td><td class="year">1962</td></tr>
+	<tr><td>Diario de una camarera</td><td class="year">1964</td></tr>
+	<tr><td>Simón del desierto</td><td class="year">1965</td></tr>
+	<tr><td>Belle de jour</td><td class="year">1967</td></tr>
+
+	<tr><td>La Vía Láctea</td><td class="year">1969</td></tr>
+	<tr><td>Tristana</td><td class="year">1970</td></tr>
+	<tr><td>El discreto encanto de la burguesía</td><td class="year">1972</td></tr>
+	<tr><td>El fantasma de la libertad</td><td class="year">1974</td></tr>
+	<tr><td>Ese oscuro objeto del deseo</td><td class="year">1977</td></tr>
+
+</tbody>
+</table>
+</div>
+
+<p>Documento creado el <abbr title="2006-05-31">31 de mayo de 2006</abbr> por <a href="http://choangalvez.nom.es/">Choan C. Gálvez</a>.</p>
+
+</div>
+</body>
+</html>

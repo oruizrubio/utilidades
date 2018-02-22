@@ -1,0 +1,39 @@
+LISTING 1: Code to Get Data from an IE Dialog Box
+Const READYSTATE_COMPLETE = 4
+set ie = CreateObject _
+	("InternetExplorer.Application")
+
+ie.navigate "about:blank"
+Do While ie.ReadyState <> _
+	READYSTATE_COMPLETE
+	WScript.Sleep 50
+Loop
+
+dim text
+Set text = ie.document. _
+	createElement("textarea")
+text.Value = "type text here"
+ie.document.body.AppendChild text
+Dim okButton
+Set okButton = ie.document. _
+	createElement("input")
+okButton.type = "button"
+okButton.value = "OK"
+ie.document.body.AppendChild okButton
+
+Dim Finished: Finished = False
+Set okButton.onclick = _
+	GetRef("OK_Clicked")
+
+ie.visible = true
+
+Do While Not Finished
+	WScript.Sleep 50
+Loop
+
+WScript.Echo text.value
+ie.Quit
+
+Sub OK_Clicked()
+	Finished = True
+End Sub

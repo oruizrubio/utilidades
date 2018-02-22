@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE></TITLE>
+<META content="text/html; charset=windows-1252" http-equiv=Content-Type>
+<STYLE>BODY {
+	MARGIN: 0px; PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.odd {
+	BACKGROUND-COLOR: white
+}
+.even {
+	BACKGROUND-COLOR: gray
+}
+</STYLE>
+
+<SCRIPT>
+//global variables for all three examples
+var colors = new Array('#ffffff','#dddddd','#aaaaaa','#888888');
+var bgcolor = 255; 			//starting bgcolor in decimal
+var steps = 10;				//the factor, a distance between colors
+var down = true;			//direction, if going up or down when calculating bgcolor value
+var switchingPoint = 160;	//the numeric value where the foreground color need to change
+var fgColorHi = "white";
+var fgColorLo = "black";
+/****************************************************************************************/
+function alternate(id){
+	method = document.methodSelector.selector[document.methodSelector.selector.selectedIndex].value;
+	if(document.getElementById){						//check that browser has capabilities
+		var table = document.getElementById(id);		//get just the selected table not all of them
+		var rows = table.getElementsByTagName("tr");	//get all table rows
+		for(i = 0; i < rows.length; i++){				//alternate styles
+			//manipulate rows
+			if(method == "doAlternate") doAlternate(rows[i], i);
+			if(method == "doMultiple") doMultiple(rows[i], i);
+			if(method == "doGradient") doGradient(rows[i]);
+		}
+	}
+}
+
+/****************************************************************************************/
+function doAlternate(row, i){
+	if(i % 2 == 0){
+		row.className = "even";
+	}else{
+		row.className = "odd";
+	}
+}
+/****************************************************************************************/
+function doMultiple(row, i){
+	row.style.backgroundColor = colors[i % colors.length];
+}
+/****************************************************************************************/
+function doGradient(row){
+	useColor = document.methodSelector.color[document.methodSelector.color.selectedIndex].value;
+	//build bgcolor string
+	if (useColor == "red")
+		bgcolorValue = "ff" + padHex() + bgcolor.toString(16) + padHex() + bgcolor.toString(16);
+	if (useColor == "green")
+		bgcolorValue = padHex() + bgcolor.toString(16) + "ff" + padHex() + bgcolor.toString(16);
+	if (useColor == "blue")
+		bgcolorValue = padHex() + bgcolor.toString(16) + padHex() + bgcolor.toString(16) + "ff";
+
+	row.style.backgroundColor = "#" + bgcolorValue;
+
+	if(down && (bgcolor-steps) > 0){	//if subtracting, prevent negative values
+		bgcolor = (bgcolor - steps);
+	}else{
+		bgcolor = (bgcolor + steps);
+		down = false;
+	}
+	if(bgcolor > 255){					//prevent too high values
+		bgcolor = (bgcolor - steps);
+		down = true;
+	}
+	if(bgcolor < switchingPoint){		//change color of text (foreground color) if below a certain value (160)
+		row.style.color = fgColorHi;
+	}else{
+		row.style.color = fgColorLo;
+	}
+}
+/****************************************************************************************/
+function padHex(){
+	return (bgcolor < 16) ? "0" : "";
+}
+/****************************************************************************************/
+</SCRIPT>
+
+<META content="MSHTML 5.00.3502.4373" name=GENERATOR></HEAD>
+<BODY onload="alternate('thetable')">
+<FORM name=methodSelector>
+  <SELECT name=selector onchange="alternate('thetable')">
+    <OPTION selected value=doAlternate>Alternate</OPTION>
+    <OPTION value=doMultiple>Multiple</OPTION>
+    <OPTION value=doGradient>Gradient</OPTION>
+  </SELECT>
+  <SELECT name=color onchange="alternate('thetable')">
+    <OPTION selected value=red>red</OPTION>
+    <OPTION value=green>green</OPTION>
+    <OPTION value=blue>blue</OPTION>
+  </SELECT>
+</FORM>
+<TABLE id=thetable>
+  <TBODY>
+  <TR>
+    <TD>0</TD>
+    <TD>Some text</TD></TR>
+  <TR>
+    <TD>1</TD>
+    <TD>Some text</TD></TR>
+  <TR>
+    <TD>2</TD>
+    <TD>Some text</TD></TR>
+  <TR>
+    <TD>3</TD>
+    <TD>Some text</TD></TR>
+  <TR>
+    <TD>4</TD>
+    <TD>Some text</TD></TR>
+  <TR>
+    <TD>5</TD>
+    <TD>Some text</TD></TR>
+  <TR>
+    <TD>6</TD>
+    <TD>Some text</TD></TR>
+  <TR>
+    <TD>7</TD>
+    <TD>Some text</TD></TR>
+  <TR>
+    <TD>8</TD>
+    <TD>Some text</TD></TR>
+  <TR>
+    <TD>9</TD>
+    <TD>Some text</TD></TR>
+  <TR>
+    <TD>10</TD>
+    <TD>Some text</TD></TR>
+  <TR>
+    <TD>11</TD>
+    <TD>Some text</TD></TR>
+  <TR>
+    <TD>12</TD>
+    <TD>Some text</TD></TR>
+  <TR>
+    <TD>13</TD>
+    <TD>Some text</TD></TR>
+  <TR>
+    <TD>14</TD>
+    <TD>Some text</TD></TR>
+  <TR>
+    <TD>15</TD>
+    <TD>Some text</TD></TR>
+  <TR>
+    <TD>16</TD>
+    <TD>Some text</TD></TR>
+  <TR>
+    <TD>17</TD>
+    <TD>Some text</TD></TR>
+  <TR>
+    <TD>18</TD>
+    <TD>Some text</TD></TR>
+  <TR>
+    <TD>18</TD>
+    <TD>Some text</TD></TR>
+  <TR>
+    <TD>19</TD>
+    <TD>Some text</TD></TR>
+  <TR>
+    <TD>20</TD>
+    <TD>Some text</TD></TR>
+  <TR>
+    <TD>21</TD>
+    <TD>Some text</TD></TR>
+  <TR>
+    <TD>22</TD>
+    <TD>Some text</TD></TR>
+  <TR>
+    <TD>23</TD>
+    <TD>Some text</TD></TR>
+  <TR>
+    <TD>24</TD>
+    <TD>Some text</TD></TR>
+</TBODY>
+</TABLE>
+</BODY>
+</HTML>

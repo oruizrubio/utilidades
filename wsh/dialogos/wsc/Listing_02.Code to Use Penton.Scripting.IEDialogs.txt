@@ -1,0 +1,53 @@
+LISTING 2: Code to Use Penton.Scripting.IEDialogs
+
+Dim dialogs
+Set dialogs = CreateObject _
+	("penton.scripting.iedialogs")
+
+dialogs.Width = 320
+dialogs.Height = 240
+dialogs.Scroll = False
+dialogs.Title = "Demoing Dialogs"
+
+dialogs.BeforeText = "Enter a password"
+Dim password
+password = dialogs.Password(WScript)
+WScript.Echo password
+
+password = dialogs. _
+	ConfirmedPassword(WScript)
+WScript.Echo password
+
+dialogs.Reset
+
+dim path: path = dialogs.File(WScript)
+WScript.Echo path
+
+dialogs.Reset
+
+dim sd
+set sd = createobject _
+	("Scripting.Dictionary")
+sd.CompareMode = vbTextCompare
+sd.add "Power Users", 1
+sd.add "Restricted Users", 2
+sd.add "Administrators", 3
+dialogs.Title = "Choose A User Group"
+value = dialogs.Selection(WScript, sd)
+WScript.Echo value
+
+dialogs.Reset
+
+Set progressDialog = _
+	dialogs.Progress(WScript)
+For i = 1 to 100
+	WScript.Sleep 20
+	progressDialog.Add "."
+Next
+
+dialogs.Reset
+
+cal = dialogs.CalendarDate(WScript)
+WScript.Echo cal
+
+
